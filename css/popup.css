@@ -1,0 +1,12 @@
+.upper {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.upper .buttons {
+  display: flex;
+}
+.upper .buttons > * {
+  margin-right: 14px;
+  border: 1px solid black;
+}/*# sourceMappingURL=popup.css.map */
