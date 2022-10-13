@@ -1,0 +1,15 @@
+.upper{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    
+    .buttons>* {
+        margin-right: 14px;
+        border: 1px solid black;
+    }
+
+        .buttons {
+            display: flex;
+    
+        }
+}
