@@ -1,12 +1,28 @@
 .upper {
   display: flex;
-  align-items: center;
   justify-content: space-between;
+  text-align: center;
+}
+.upper .buttons > * {
+  margin-right: 14px;
 }
 .upper .buttons {
   display: flex;
 }
-.upper .buttons > * {
-  margin-right: 14px;
-  border: 1px solid black;
+
+#clipboard .data {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 5px 0;
+}
+#clipboard .data .dataButtons {
+  cursor: pointer;
+}
+#clipboard .data .dataButtons img {
+  height: 24px;
+  width: 24px;
+}
+#clipboard .data .dataText {
+  font-size: 1rem;
 }/*# sourceMappingURL=popup.css.map */

@@ -9,7 +9,7 @@
             "js": ["content.js"]
         }
     ],
-    "permissions": ["tabs","storage"],
+    "permissions": ["tabs","storage","contextMenus"],
     "action": {
         "default_popup": "popup.html",
         "default_title": "TabTrack"

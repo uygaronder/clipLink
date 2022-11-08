@@ -1,15 +1,31 @@
 .upper{
     display: flex;
-    align-items: center;
     justify-content: space-between;
-    
+    text-align: center;
     .buttons>* {
         margin-right: 14px;
-        border: 1px solid black;
     }
+    .buttons {
+        display: flex;
 
-        .buttons {
-            display: flex;
-    
+    }
+}
+
+#clipboard{
+    .data{
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin: 5px 0;
+        .dataButtons{
+            img{
+                height: 24px;
+                width: 24px;
+            }
+            cursor: pointer;
         }
+        .dataText{
+            font-size: 1rem;
+        }
+    }
 }
