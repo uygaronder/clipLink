@@ -9,7 +9,7 @@ chrome.contextMenus.create({
 function onSelect() {
     console.log(selected);
 }
-
+/*
 chrome.contextMenus.onClicked.addListener(function (info) {
     if (info.menuItemId == "textSelect") {
         var id;
@@ -19,7 +19,9 @@ chrome.contextMenus.onClicked.addListener(function (info) {
                 id = tabs[0].id;
                 chrome.scripting.executeScript(
                     {
-                        code: "window.getSelection().toString();",
+                        func: () => {
+                            window.getSelection().toString();
+                        },
                         target: { tabId: id },
                     },
                     function (selection) {
@@ -31,7 +33,7 @@ chrome.contextMenus.onClicked.addListener(function (info) {
         );
     }
 });
-
+*/
 function getString() {
     window.getSelection().toString();
 }
