@@ -9,7 +9,7 @@
             "js": ["content.js"]
         }
     ],
-    "permissions": ["contextMenus","tabs","storage","scripting"],
+    "permissions": ["contextMenus","tabs","storage","scripting","nativeMessaging"],
     "host_permissions": [
     "http://*/*", "https://*/*"
     ],

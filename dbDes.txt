@@ -1,0 +1,22 @@
+storage:[
+    settings:[
+        darkTheme: Bool,
+
+    ]
+    starredData:[
+        pieceOfData:{
+            data: String;
+            hidden: Bool;
+            date: Date;
+            id: Number
+        }
+    ]
+    dataPool:[
+        pieceOfData:{
+            data: String;
+            hidden: Bool;
+            date: Date;
+            id: Number
+        }
+    ]
+]

@@ -1,39 +1,79 @@
-var selected = "flag";
+chrome.storage.sync.get(null, (data) => {
+    const keys = Object.keys(data);
+    //console.log(keys);
+
+    if (keys.length == 0) {
+        onboarding();
+    }
+});
 
 chrome.contextMenus.create({
-    title: "test",
+    title: "Copy Selected Text To Clipboard",
     contexts: ["selection"],
     id: "textSelect",
 });
 
-function onSelect() {
-    console.log(selected);
-}
-/*
 chrome.contextMenus.onClicked.addListener(function (info) {
     if (info.menuItemId == "textSelect") {
+        console.log("textSelect");
         var id;
         chrome.tabs.query(
             { currentWindow: true, active: true },
             function (tabs) {
                 id = tabs[0].id;
+
                 chrome.scripting.executeScript(
                     {
                         func: () => {
-                            window.getSelection().toString();
+                            return window.getSelection().toString();
                         },
                         target: { tabId: id },
                     },
                     function (selection) {
-                        selected = selection[0];
-                        console.log(selected);
+                        const selectedText = selection[0].result;
+                        newItem(selectedText);
                     }
                 );
             }
         );
     }
 });
-*/
-function getString() {
-    window.getSelection().toString();
+
+chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
+    const selectedText = request.selectedText;
+    console.log(selectedText);
+    if (selectedText) {
+        fetchData(selectedText).then((data) => {
+            sendResponse({ response: data });
+            chrome.extension.sendMessage(
+                { action: "newItem", messege: selectedText },
+                function () {}
+            );
+        });
+        return true;
+    }
+});
+
+function onboarding() {
+    chrome.storage.sync.set({
+        settings: {
+            darkTheme: true,
+        },
+    });
+    chrome.storage.sync.set({
+        data: [],
+    });
+}
+
+function newItem(text) {
+    chrome.storage.sync.get(["data"], (pulledData) => {
+        let data = pulledData["data"];
+        const newData = {
+            data: text,
+            hidden: false,
+            id: Date.now(),
+        };
+        data.push(newData);
+        chrome.storage.sync.set({ data: data });
+    });
 }
