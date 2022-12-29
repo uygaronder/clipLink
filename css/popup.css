@@ -1,10 +1,32 @@
+#clipboard #inputBox {
+  width: 100%;
+  padding: 15px 8px;
+  border: none;
+  outline: none;
+  border-bottom: var(--border);
+  font-size: 0.9rem;
+}
+#clipboard #clipboardData {
+  margin: 15px 0;
+  max-height: 75vh;
+  overflow-y: auto;
+}
 #clipboard .data {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin: 5px 0;
+  padding: 8px 5px;
+  transition: 0.2s ease;
+  border: 1px solid rgba(0, 0, 0, 0);
+  border-radius: 3px;
+  cursor: copy;
+}
+#clipboard .data .frontSpan {
+  display: flex;
 }
 #clipboard .data .dragspan {
+  transition: 0.2s ease;
+  opacity: 0;
   cursor: move;
 }
 #clipboard .data .dragspan img {
@@ -15,14 +37,21 @@
   cursor: pointer;
 }
 #clipboard .data .dataButtons img {
-  height: 24px;
-  width: 24px;
+  height: 18px;
+  width: 18px;
 }
 #clipboard .data .dataText {
   font-size: 1rem;
+}
+#clipboard .data:hover {
+  border: var(--border);
+}
+#clipboard .data:hover .dragspan {
+  opacity: 1;
 }
 
 .buttons {
   display: flex;
   justify-content: flex-end;
+  cursor: pointer;
 }/*# sourceMappingURL=popup.css.map */

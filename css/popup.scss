@@ -1,10 +1,34 @@
 #clipboard{
+    #inputBox{
+        width: 100%;
+        padding: 15px 8px;
+        border: none;
+        outline: none;
+        border-bottom: var(--border);
+        font-size: .9rem;
+    }
+
+
+    #clipboardData{
+        margin: 15px 0;
+        max-height: 75vh;
+        overflow-y: auto;
+    }
     .data{
         display: flex;
         align-items: center;
         justify-content: space-between;
-        margin: 5px 0;
+        padding: 8px 5px;
+        transition: .2s ease;
+        border: 1px solid rgba(0, 0, 0, 0);
+        border-radius: 3px;
+        cursor: copy;
+        .frontSpan{
+            display: flex;
+        }
         .dragspan{
+            transition: .2s ease;
+            opacity: 0;
             cursor: move;
             img {
                     height: 24px;
@@ -13,13 +37,19 @@
         }
         .dataButtons{
             img{
-                height: 24px;
-                width: 24px;
+                height: 18px;
+                width: 18px;
             }
             cursor: pointer;
         }
         .dataText{
             font-size: 1rem;
+        }
+        &:hover{
+            border: var(--border);
+            .dragspan{
+                opacity: 1;
+            }
         }
     }
 }
@@ -27,4 +57,5 @@
 .buttons{
     display: flex;
     justify-content: flex-end;
+    cursor: pointer;
 }

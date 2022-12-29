@@ -65,6 +65,7 @@ function onboarding() {
 }
 
 function newItem(text) {
+    text = text.trim();
     chrome.storage.sync.get(["data"], (pulledData) => {
         let data = pulledData["data"];
         const newData = {

@@ -1,7 +1,18 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;700&display=swap');
+
+:root{
+    --openSans: 'Open Sans',
+        sans-serif;
+    --border: 1px solid rgba(0, 0, 0, 0.2);
+    --lightContrast: rgba(0, 0, 0, 0.24);
+    --background: #fff
+}
+
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    font-family: var(--openSans);
 }
 
 body{
@@ -10,6 +21,28 @@ body{
 }
 
 .imgMed{
-    height: 24px;
-    width: 24px;
+    height: 20px;
+    width: 20px;
+}
+
+/* ----------------- ScrollBar Stuff ---------------- */
+/* Firefox */
+* {
+    scrollbar-width: auto;
+    scrollbar-color: var(--lightContrast) var(--background);
+}
+
+/* Chrome, Edge, and Safari */
+*::-webkit-scrollbar {
+    width: 8px;
+}
+
+*::-webkit-scrollbar-track {
+    background: var(--background);
+}
+
+*::-webkit-scrollbar-thumb {
+    background-color: var(--lightContrast);
+    border-radius: 4px;
+    border: 4px none var(--background);
 }
