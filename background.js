@@ -1,6 +1,5 @@
 chrome.storage.sync.get(null, (data) => {
     const keys = Object.keys(data);
-    //console.log(keys);
 
     if (keys.length == 0) {
         onboarding();
@@ -15,7 +14,7 @@ chrome.contextMenus.create({
 
 chrome.contextMenus.onClicked.addListener(function (info) {
     if (info.menuItemId == "textSelect") {
-        console.log("textSelect");
+        //console.log("textSelect");
         var id;
         chrome.tabs.query(
             { currentWindow: true, active: true },

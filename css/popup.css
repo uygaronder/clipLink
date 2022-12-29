@@ -1,20 +1,15 @@
-.upper {
-  display: flex;
-  justify-content: space-between;
-  text-align: center;
-}
-.upper .buttons > * {
-  margin-right: 14px;
-}
-.upper .buttons {
-  display: flex;
-}
-
 #clipboard .data {
   display: flex;
   align-items: center;
   justify-content: space-between;
   margin: 5px 0;
+}
+#clipboard .data .dragspan {
+  cursor: move;
+}
+#clipboard .data .dragspan img {
+  height: 24px;
+  width: 24px;
 }
 #clipboard .data .dataButtons {
   cursor: pointer;
@@ -25,4 +20,9 @@
 }
 #clipboard .data .dataText {
   font-size: 1rem;
+}
+
+.buttons {
+  display: flex;
+  justify-content: flex-end;
 }/*# sourceMappingURL=popup.css.map */
