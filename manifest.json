@@ -15,9 +15,26 @@
     ],
     "action": {
         "default_popup": "popup.html",
-        "default_title": "TabTrack"
+        "default_title": "TabTrack",
+        "default_icon": "res/clipboard.png"
     },
     "background": {
         "service_worker": "background.js"
+    },
+    "commands": {
+        "copyNewItem": {
+            "suggested_key": {
+                "default": "Alt+C",
+                "mac": "Alt+C"
+            },
+            "description": "Add New Item"
+        },
+        "openPopup": {
+            "suggested_key": {
+                "default": "Alt+V",
+                "mac": "Alt+V"
+            },
+            "description": "Add New Item"
+        }
     }
 }

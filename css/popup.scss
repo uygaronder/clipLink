@@ -31,18 +31,18 @@
             .textContainer{
                 cursor: copy;
                 width: 100%;
-                overflow: hidden;½½½½
+                overflow: hidden;
                 .copiedPrompt {
-                    font-family: var(--openSans);
-                    font-size: 1rem;
-                    position: absolute;
-                    top: 0;
-                    background-color: var(--background);
-                    height: 100%;
-                    width: 100%;
-                    transition: .5s ease;
-                    opacity: 1;
-                }
+                        font-family: var(--openSans);
+                        font-size: 1rem;
+                        position: absolute;
+                        top: 0;
+                        background-color: var(--background);
+                        height: 100%;
+                        width: 100%;
+                        transition: .5s ease;
+                        opacity: 1;
+                    }
             }
             
         }
@@ -69,14 +69,49 @@
 
 .buttons{
     display: flex;
-    justify-content: flex-end;
-    cursor: pointer;
+    justify-content: space-between;
     img{
         filter: var(--svgFilter);
+    }
+    #dark{
+        input{
+            display: none;
+        }
+        height: 16px;
+        width: 28px;
+        background-color: var(--contrast);
+        padding: 2px;
+        border: 1px solid var(--border);
+        border-radius: 12px;
+        transition: .4s ease;
+        cursor: pointer;
+        .slider{
+            height: 12px;
+            width: 12px;
+            display: block;
+            background-color: var(--background);
+            border-radius: 50%;
+            transition: .4s ease;
+        }
+        &:has(input:checked) {
+            .slider{
+                transform: translateX(12px);
+            }
+        }
+    }
+    #sync{
+        cursor: pointer;
+        display: flex;
+        justify-content: center;
+        img{
+            overflow: hidden;
+            width: 24px;
+        }
     }
 }
 
 .syncSpin{
     transition: 1s ease;
+    transform-origin: 50% 50%;
     transform: rotate(360deg);
 }

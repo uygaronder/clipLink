@@ -1,6 +1,7 @@
 const inputBox = document.getElementById("inputBox");
 const sync = document.getElementById("sync");
 const dark = document.getElementById("dark");
+const darkCheckbox = document.getElementById("themeCheck");
 const clipboardData = document.getElementById("clipboardData");
 let body;
 
@@ -11,7 +12,6 @@ function defRender() {
 }
 
 function render(data, search) {
-    console.log(data);
     clipboardData.innerHTML = "";
     for (let item of data) {
         const newSpan = document.createElement("span");
@@ -188,6 +188,7 @@ function themeSet() {
     chrome.storage.sync.get(null).then((result) => {
         if (result.settings.darkTheme) {
             body.classList.add("dark");
+            darkCheckbox.checked = true;
         } else {
             body.classList.remove("dark");
         }

@@ -6,14 +6,18 @@
     --border: 1px solid rgba(0, 0, 0, 0.2);
     --lightContrast: rgba(0, 0, 0, 0.24);
     --background: #fff;
+    --contrast: #222;
     --fontColor: #000;
     --svgTransform: grayscale(100%);
+    --svgTransformRevert: grayscale(100%) invert(1);
     .dark{
         --background: #222;
+        --contrast: #fff;
         --fontColor: #fff;
         --lightContrast: rgba(223, 223, 223, 0.24);
         --border: 1px solid rgba(221, 221, 221, 0.2);
         --svgFilter: grayscale(100%) invert(1);
+        --svgTransformRevert: grayscale(100%);
     }
 }
 
