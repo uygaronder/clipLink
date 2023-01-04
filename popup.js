@@ -2,6 +2,7 @@ const inputBox = document.getElementById("inputBox");
 const sync = document.getElementById("sync");
 const dark = document.getElementById("dark");
 const clipboardData = document.getElementById("clipboardData");
+let body;
 
 function defRender() {
     chrome.storage.sync.get(["data"], (pulledData) =>
@@ -13,13 +14,16 @@ function render(data, search) {
     console.log(data);
     clipboardData.innerHTML = "";
     for (let item of data) {
-        const dragSpan = document.createElement("span");
-        dragSpan.innerHTML = `<span class="dragspan"><img src="res/drag.svg" alt="drag"></span>`;
-
         const newSpan = document.createElement("span");
         newSpan.id = item["id"];
         newSpan.className = "data";
-        newSpan.onclick = () => {
+        if (!search) {
+            newSpan.draggable = "true";
+        }
+
+        const textContainer = document.createElement("span");
+        textContainer.className = "textContainer";
+        textContainer.onclick = () => {
             copyText(item);
         };
 
@@ -60,10 +64,9 @@ function render(data, search) {
 
         const frontSpan = document.createElement("span");
         frontSpan.className = "frontSpan";
-        if (!search) {
-            frontSpan.appendChild(dragSpan);
-        }
-        frontSpan.appendChild(textNode);
+
+        textContainer.appendChild(textNode);
+        frontSpan.appendChild(textContainer);
 
         newSpan.appendChild(frontSpan);
         newSpan.appendChild(buttonsSpan);
@@ -103,7 +106,21 @@ function delItem(id) {
 
 function copyText(item) {
     navigator.clipboard.writeText(item["data"]);
-    let itemSpan = document.getElementById(item["id"]);
+    const itemSpan = document.getElementById(item["id"]);
+
+    const copiedPrompt = document.createElement("span");
+    copiedPrompt.className = "copiedPrompt";
+    copiedPrompt.innerText = "Copied";
+
+    const textContainer = itemSpan.getElementsByClassName("textContainer")[0];
+
+    textContainer.appendChild(copiedPrompt);
+    setTimeout(() => {
+        copiedPrompt.style = "opacity:0";
+    }, 300);
+    setTimeout(() => {
+        textContainer.removeChild(copiedPrompt);
+    }, 500);
 }
 
 document.addEventListener("keypress", (event) => {
@@ -148,11 +165,105 @@ function search() {
 }
 
 dark.addEventListener("click", () => {
-    chrome.storage.sync.get(null).then((result) => console.log(result));
+    chrome.storage.sync.get(null).then((result) => {
+        let newSettings = result.settings;
+        newSettings.darkTheme = !result.settings.darkTheme;
+        chrome.storage.sync
+            .set({
+                [`settings`]: newSettings,
+            })
+            .then(() => themeSet());
+    });
 });
 
 sync.addEventListener("click", () => {
+    sync.className = "syncSpin";
+    setTimeout(() => {
+        sync.classList.remove("syncSpin");
+    }, 1000);
     defRender();
 });
 
+function themeSet() {
+    chrome.storage.sync.get(null).then((result) => {
+        if (result.settings.darkTheme) {
+            body.classList.add("dark");
+        } else {
+            body.classList.remove("dark");
+        }
+    });
+}
+
 defRender();
+
+let dragId;
+clipboardData.ondrop = (event) => dropItem(event);
+clipboardData.ondragover = (event) => dragOver(event);
+clipboardData.ondragstart = (event) => dragStart(event);
+
+function getShell(div) {
+    let countdown = 20;
+    while (countdown > 0 && div.className != "data") {
+        div = div.parentElement;
+    }
+    return div;
+}
+
+function checkPlacement(div, mouseY) {
+    // true to top false to bottom
+    return (div[1] - div[0]) / 2 > div[1] - mouseY;
+}
+
+function dragOver(e) {
+    e.preventDefault();
+}
+
+function dragStart(e) {
+    dragId = e.target.id;
+}
+
+function dropItem(e) {
+    e.preventDefault();
+    let overIndex;
+    let itemIndex;
+
+    chrome.storage.sync.get("data").then((result) => {
+        let data = result.data;
+        let targetDiv = getShell(e.target);
+        let itemDiv = document.getElementById(dragId);
+
+        const toTop = checkPlacement(
+            [
+                targetDiv.getBoundingClientRect().top,
+                targetDiv.getBoundingClientRect().bottom,
+            ],
+            e.y
+        );
+
+        for (var i = 0; i < data.length; i++) {
+            if (!itemIndex && data[i].id == itemDiv.id) {
+                itemIndex = i;
+                itemToChange = data.splice(i, 1)[0];
+                break;
+            }
+        }
+
+        for (var i = 0; i < data.length; i++) {
+            if (!overIndex && data[i].id == targetDiv.id) {
+                overIndex = i;
+                break;
+            }
+        }
+
+        if (overIndex > itemIndex) {
+            //data.splice(item);
+        }
+        data.splice(toTop ? overIndex + 1 : overIndex, 0, itemToChange);
+        chrome.storage.sync.set({ data: data }).then(() => defRender());
+    });
+}
+
+window.onload = () => {
+    body = document.getElementsByTagName("body")[0];
+    themeSet();
+};

@@ -6,6 +6,8 @@
         outline: none;
         border-bottom: var(--border);
         font-size: .9rem;
+        background: transparent;
+        color: var(--fontColor);
     }
 
 
@@ -22,23 +24,34 @@
         transition: .2s ease;
         border: 1px solid rgba(0, 0, 0, 0);
         border-radius: 3px;
-        cursor: copy;
         .frontSpan{
             display: flex;
-        }
-        .dragspan{
-            transition: .2s ease;
-            opacity: 0;
-            cursor: move;
-            img {
-                    height: 24px;
-                    width: 24px;
+            position: relative;
+            width: 100%;
+            .textContainer{
+                cursor: copy;
+                width: 100%;
+                overflow: hidden;½½½½
+                .copiedPrompt {
+                    font-family: var(--openSans);
+                    font-size: 1rem;
+                    position: absolute;
+                    top: 0;
+                    background-color: var(--background);
+                    height: 100%;
+                    width: 100%;
+                    transition: .5s ease;
+                    opacity: 1;
                 }
+            }
+            
         }
         .dataButtons{
+            display: flex;
             img{
                 height: 18px;
                 width: 18px;
+                filter: var(--svgFilter);
             }
             cursor: pointer;
         }
@@ -58,4 +71,12 @@
     display: flex;
     justify-content: flex-end;
     cursor: pointer;
+    img{
+        filter: var(--svgFilter);
+    }
+}
+
+.syncSpin{
+    transition: 1s ease;
+    transform: rotate(360deg);
 }

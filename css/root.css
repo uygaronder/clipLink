@@ -4,7 +4,16 @@
       sans-serif;
   --border: 1px solid rgba(0, 0, 0, 0.2);
   --lightContrast: rgba(0, 0, 0, 0.24);
-  --background: #fff ;
+  --background: #fff;
+  --fontColor: #000;
+  --svgTransform: grayscale(100%);
+}
+:root .dark {
+  --background: #222;
+  --fontColor: #fff;
+  --lightContrast: rgba(223, 223, 223, 0.24);
+  --border: 1px solid rgba(221, 221, 221, 0.2);
+  --svgFilter: grayscale(100%) invert(1);
 }
 
 * {
@@ -17,6 +26,9 @@
 body {
   min-width: 250px;
   padding: 15px;
+  background-color: var(--background);
+  color: var(--fontColor);
+  transition: 0.2s ease;
 }
 
 .imgMed {
