@@ -13,64 +13,67 @@ function defRender() {
 
 function render(data, search) {
     clipboardData.innerHTML = "";
+    console.log(data);
     for (let item of data) {
-        const newSpan = document.createElement("span");
-        newSpan.id = item["id"];
-        newSpan.className = "data";
-        if (!search) {
-            newSpan.draggable = "true";
+        if (item["data"] != "") {
+            const newSpan = document.createElement("span");
+            newSpan.id = item["id"];
+            newSpan.className = "data";
+            if (!search) {
+                newSpan.draggable = "true";
+            }
+
+            const textContainer = document.createElement("span");
+            textContainer.className = "textContainer";
+            textContainer.onclick = () => {
+                copyText(item);
+            };
+
+            const textNode = document.createElement("p");
+            textNode.className = "dataText";
+            let text = item["data"];
+            if (item["hidden"]) {
+                text = item["data"][0];
+                text = text + "*".repeat(item["data"].length - 1);
+            } else {
+                textNode.title = item["data"];
+            }
+            if (item["data"].length > 20) {
+                text = text.substring(0, 10) + "...";
+            }
+
+            textNode.innerText = text;
+
+            const buttonsSpan = document.createElement("span");
+            buttonsSpan.className = "dataButtons";
+
+            const hideButton = document.createElement("span");
+            hideButton.onclick = () => {
+                hideItem(item["id"]);
+            };
+            hideButton.innerHTML = `<img src="res/eye.svg" alt="Hide">`;
+            hideButton.className = "dataButton";
+
+            const delButton = document.createElement("span");
+            delButton.onclick = () => {
+                delItem(item["id"]);
+            };
+            delButton.innerHTML = `<img src="res/del.svg" alt="Delete">`;
+            delButton.className = "dataButton";
+
+            buttonsSpan.appendChild(hideButton);
+            buttonsSpan.appendChild(delButton);
+
+            const frontSpan = document.createElement("span");
+            frontSpan.className = "frontSpan";
+
+            textContainer.appendChild(textNode);
+            frontSpan.appendChild(textContainer);
+
+            newSpan.appendChild(frontSpan);
+            newSpan.appendChild(buttonsSpan);
+            clipboardData.appendChild(newSpan);
         }
-
-        const textContainer = document.createElement("span");
-        textContainer.className = "textContainer";
-        textContainer.onclick = () => {
-            copyText(item);
-        };
-
-        const textNode = document.createElement("p");
-        textNode.className = "dataText";
-        let text = item["data"];
-        if (item["hidden"]) {
-            text = item["data"][0];
-            text = text + "*".repeat(item["data"].length - 1);
-        } else {
-            textNode.title = item["data"];
-        }
-        if (item["data"].length > 20) {
-            text = text.substring(0, 10) + "...";
-        }
-
-        textNode.innerText = text;
-
-        const buttonsSpan = document.createElement("span");
-        buttonsSpan.className = "dataButtons";
-
-        const hideButton = document.createElement("span");
-        hideButton.onclick = () => {
-            hideItem(item["id"]);
-        };
-        hideButton.innerHTML = `<img src="res/eye.svg" alt="Hide">`;
-        hideButton.className = "dataButton";
-
-        const delButton = document.createElement("span");
-        delButton.onclick = () => {
-            delItem(item["id"]);
-        };
-        delButton.innerHTML = `<img src="res/del.svg" alt="Delete">`;
-        delButton.className = "dataButton";
-
-        buttonsSpan.appendChild(hideButton);
-        buttonsSpan.appendChild(delButton);
-
-        const frontSpan = document.createElement("span");
-        frontSpan.className = "frontSpan";
-
-        textContainer.appendChild(textNode);
-        frontSpan.appendChild(textContainer);
-
-        newSpan.appendChild(frontSpan);
-        newSpan.appendChild(buttonsSpan);
-        clipboardData.appendChild(newSpan);
     }
 }
 
@@ -263,6 +266,17 @@ function dropItem(e) {
         chrome.storage.sync.set({ data: data }).then(() => defRender());
     });
 }
+
+function syncItems() {
+    // delete empty items
+    // sync with db
+    // empty searchbar
+    // render
+}
+
+sync.onclick = () => {
+    syncItems();
+};
 
 window.onload = () => {
     body = document.getElementsByTagName("body")[0];
