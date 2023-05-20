@@ -13,7 +13,6 @@ function defRender() {
 
 function render(data, search) {
     clipboardData.innerHTML = "";
-    console.log(data);
     for (let item of data) {
         if (item["data"] != "") {
             const newSpan = document.createElement("span");
@@ -152,9 +151,6 @@ inputBox.addEventListener("keyup", () => search());
 function search() {
     if (inputBox.value != "") {
         chrome.storage.sync.get(["data"], (pulledData) => {
-            /*for (let item of pulledData["data"]) {
-                console.log(item);
-            }*/
             const result = pulledData["data"].filter((item) =>
                 item["data"]
                     .toLowerCase()

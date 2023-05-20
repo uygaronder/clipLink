@@ -1,4 +1,3 @@
-console.log("test: content script start");
 /*
 chrome.extension.onMessege.addListener((msg) => {
     console.log(msg);
@@ -8,5 +7,5 @@ chrome.extension.onMessege.addListener((msg) => {
 });
 */
 function fetchData() {
-    console.log("fetched data");
+    //console.log("fetched data");
 }
